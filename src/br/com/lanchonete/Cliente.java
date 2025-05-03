@@ -9,7 +9,6 @@ public class Cliente {
         this.idade = idade;
     }
 
-
     public String getNome() {
         return nome;
     }

@@ -22,7 +22,7 @@ public class Lanchonete {
             Pedido p = pedidos[i];
             System.out.println("Cliente: " + p.getCliente().getNome().toUpperCase());
             System.out.println("Total (sem desconto): R$ " + p.calcularTotal());
-            System.out.println("Total (com desconto): R$ " + p.calcularTotalComDesconto(10));
+            System.out.println("Total (com desconto): R$ " + p.calcularTotal(10));
             System.out.println("-----------------------------");
         }
     }
