@@ -5,10 +5,6 @@ public class Produto {
     private double preco;
     private String categoria;
 
-    public Produto(String nome){
-        this.nome = nome;
-    }
-
     public Produto(String nome, double preco){
         this.nome = nome;
         this.preco = preco;

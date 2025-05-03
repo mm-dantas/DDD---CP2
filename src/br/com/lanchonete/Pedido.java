@@ -40,7 +40,7 @@ public class Pedido {
         return total;
     }
 
-    public double calcularTotalComDesconto(double percentual) {
+    public double calcularTotal(double percentual) {
         double total = calcularTotal();
         return total - (total * (percentual / 100));
     }
