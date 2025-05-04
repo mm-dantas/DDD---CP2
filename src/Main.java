@@ -34,7 +34,7 @@ public class Main {
                     produto = new Produto(nomeProduto, precoProduto, categoriaProduto);
                 }
 
-                int quantidade = lerIntValido(scanner, "Digite a quantidade de itens:");
+                int quantidade = lerIntValido(scanner, "Digite a quantidade de itens dese produto:");
 
                 if (quantidade < 2) {
                     pedido.adicionarProduto(produto);

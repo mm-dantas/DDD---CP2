@@ -24,8 +24,10 @@ public class Lanchonete {
             System.out.println("Total (sem desconto): R$ " + p.calcularTotal());
             if (p.getDesconto() != 0) {
                 System.out.println("Total (com desconto): R$ " + p.calcularTotal(p.getDesconto()));
+            } else {
+
+                System.out.println("Esse pedido não possui desconto.");
             }
-            System.out.println("Esse pedido não possui desconto.");
             System.out.println("-----------------------------");
         }
     }
