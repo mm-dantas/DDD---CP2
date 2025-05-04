@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import br.com.lanchonete.Cliente;
 import br.com.lanchonete.Lanchonete;
@@ -15,20 +14,29 @@ public class Main {
 
         Cliente cliente = new Cliente(nomeCliente, idadeCliente);
 
-        String nomeProduto = lerStringNaoVazia(scanner, "Digite o nome do produto:");
-        double precoProduto = lerDoubleValido(scanner, "Digite o preço do produto:");
-        String categoriaProduto = lerStringNaoVazia(scanner, "Digite a categoria do produto:");
+        String continuar;
+        do {
+            String nomeProduto = lerStringNaoVazia(scanner, "Digite o nome do produto:");
+            double precoProduto = lerDoubleValido(scanner, "Digite o preço do produto:");
 
-        Produto produto = new Produto(nomeProduto, precoProduto, categoriaProduto);
+            System.out.println("Digite a categoria do produto (pressione Enter para deixar em branco):");
+            String categoriaProduto = scanner.nextLine().trim();
+            Produto produto;
+            if (categoriaProduto.isEmpty()) {
+                produto = new Produto(nomeProduto, precoProduto);
+            } else {
+                produto = new Produto(nomeProduto, precoProduto, categoriaProduto);
+            }
 
-        Pedido pedido1 = new Pedido(cliente);
-        pedido1.adicionarProduto(produto);
+            Pedido pedido = new Pedido(cliente);
+            pedido.adicionarProduto(produto);
 
-        Pedido pedido2 = new Pedido(cliente, 10.0);
-        pedido2.adicionarProduto(produto, 3);
+            lanchonete.registrarPedido(pedido);
 
-        lanchonete.registrarPedido(pedido1);
-        lanchonete.registrarPedido(pedido2);
+            System.out
+                    .println("Deseja adicionar outro pedido? (Digite 's' para sim ou qualquer outra tecla para sair):");
+            continuar = scanner.nextLine().trim().toLowerCase();
+        } while (continuar.equals("s"));
 
         lanchonete.exibirResumoPedidos();
     }
