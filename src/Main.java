@@ -9,41 +9,53 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Lanchonete lanchonete = new Lanchonete();
 
-        String nomeCliente = lerStringNaoVazia(scanner, "Digite o nome do cliente:");
-        int idadeCliente = lerIntValido(scanner, "Digite a idade do cliente:");
-
-        Cliente cliente = new Cliente(nomeCliente, idadeCliente);
-
         String continuar;
         do {
-            String nomeProduto = lerStringNaoVazia(scanner, "Digite o nome do produto:");
-            double precoProduto = lerDoubleValido(scanner, "Digite o preço do produto:");
-
-            System.out.println("Digite a categoria do produto (pressione Enter para deixar em branco):");
-            String categoriaProduto = scanner.nextLine().trim();
-            Produto produto;
-            if (categoriaProduto.isEmpty()) {
-                produto = new Produto(nomeProduto, precoProduto);
-            } else {
-                produto = new Produto(nomeProduto, precoProduto, categoriaProduto);
-            }
+            String nomeCliente = lerStringNaoVazia(scanner, "Digite o nome do cliente:");
+            int idadeCliente = lerIntValido(scanner, "Digite a idade do cliente:");
+            Cliente cliente = new Cliente(nomeCliente, idadeCliente);
 
             double desconto = lerDoubleValido(scanner,
                     "Digite o percentual de desconto para o pedido (ex: 10 para 10%). Valor padrão é 0:");
-
             Pedido pedido = new Pedido(cliente, desconto);
-            int quantidade = lerIntValido(scanner, "Digite a quantidade de items:");
-            if (quantidade < 1) {
-                pedido.adicionarProduto(produto);
-            } else {
-                pedido.adicionarProduto(produto, quantidade);
-            }
+
+            String adicionarMaisProdutoString;
+            do {
+                String nomeProduto = lerStringNaoVazia(scanner, "Digite o nome do produto:");
+                double precoProduto = lerDoubleValido(scanner, "Digite o preço do produto:");
+
+                System.out.println("Digite a categoria do produto (pressione Enter para deixar em branco):");
+                String categoriaProduto = scanner.nextLine().trim();
+
+                Produto produto;
+                if (categoriaProduto.isEmpty()) {
+                    produto = new Produto(nomeProduto, precoProduto);
+                } else {
+                    produto = new Produto(nomeProduto, precoProduto, categoriaProduto);
+                }
+
+                int quantidade = lerIntValido(scanner, "Digite a quantidade de itens:");
+
+                if (quantidade < 2) {
+                    pedido.adicionarProduto(produto);
+                } else {
+                    pedido.adicionarProduto(produto, quantidade);
+                }
+
+                System.out.println(
+                        "Deseja adicionar mais produtos? (Digite 's' para sim ou qualquer outra tecla para sair):");
+                adicionarMaisProdutoString = scanner.nextLine().trim().toLowerCase();
+
+            } while (adicionarMaisProdutoString.equals("s"));
 
             lanchonete.registrarPedido(pedido);
+
             System.out
                     .println("Deseja adicionar outro pedido? (Digite 's' para sim ou qualquer outra tecla para sair):");
             continuar = scanner.nextLine().trim().toLowerCase();
+
         } while (continuar.equals("s"));
+
         lanchonete.exibirResumoPedidos();
     }
 
@@ -66,7 +78,7 @@ public class Main {
             try {
                 valor = Integer.parseInt(scanner.nextLine());
                 if (valor < 0)
-                    System.out.println("====Idade deve ser um valor positivo.====\n\n");
+                    System.out.println("====Valor deve ser um número positivo.====\n\n");
             } catch (NumberFormatException e) {
                 System.out.println("====Valor inválido. Digite um número inteiro.====\n\n");
             }
