@@ -28,16 +28,22 @@ public class Main {
                 produto = new Produto(nomeProduto, precoProduto, categoriaProduto);
             }
 
-            Pedido pedido = new Pedido(cliente);
-            pedido.adicionarProduto(produto);
+            double desconto = lerDoubleValido(scanner,
+                    "Digite o percentual de desconto para o pedido (ex: 10 para 10%). Valor padrão é 0:");
+
+            Pedido pedido = new Pedido(cliente, desconto);
+            int quantidade = lerIntValido(scanner, "Digite a quantidade de items:");
+            if (quantidade < 1) {
+                pedido.adicionarProduto(produto);
+            } else {
+                pedido.adicionarProduto(produto, quantidade);
+            }
 
             lanchonete.registrarPedido(pedido);
-
             System.out
                     .println("Deseja adicionar outro pedido? (Digite 's' para sim ou qualquer outra tecla para sair):");
             continuar = scanner.nextLine().trim().toLowerCase();
         } while (continuar.equals("s"));
-
         lanchonete.exibirResumoPedidos();
     }
 
@@ -75,7 +81,7 @@ public class Main {
             try {
                 valor = Double.parseDouble(scanner.nextLine());
                 if (valor < 0)
-                    System.out.println("====Preço deve ser positivo.====\n\n");
+                    System.out.println("====Valor deve ser positivo.====\n\n");
             } catch (NumberFormatException e) {
                 System.out.println("====Valor inválido. Digite um número com ponto.====\n\n");
             }

@@ -26,7 +26,7 @@ public class Pedido {
 
     public void adicionarProduto(Produto produto, int quantidade) {
         for (int i = 0; i < quantidade; i++) {
-            adicionarProduto(produto); // Adiciona o produto
+            adicionarProduto(produto);
         }
     }
 
